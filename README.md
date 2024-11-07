@@ -24,3 +24,22 @@ next.classList.remove('no-hover');
 }
 
 }
+
+
+
+.Lside.no-hover:hover{
+  background:url("../images/lside.png") no-repeat; 
+  transition: none;
+}
+.Rside.no-hover:hover{
+  background:url("../images/rside.png") no-repeat; 
+  transition: none;
+}
+#prev.no-hover:hover{
+  background:url("../images/lside.png") no-repeat; 
+  transition: none;
+}
+#next.no-hover:hover{
+  background:url("../images/lside.png") no-repeat; 
+  transition: none;
+}
