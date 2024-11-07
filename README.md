@@ -1,21 +1,23 @@
-
 function responsiveSlider() {
   const slider = document.querySelector('.swiperSection');
   const sliderList = slider.querySelector('ul');
   const prev = document.getElementById('prev');
-  const next = document.getElementById('next');
-  const lside = document.querySelector('.Lside'); // Assuming Lside has this class
+  const next = document.getElementById('next');	
+const lside = document.querySelector('.Lside');
+const rside = document.querySelector('.Rside');
 
-  if (!slider || !sliderList || !prev || !next || !lside) {
-    alert('Elements not found. Make sure all necessary elements exist.');
+
+  if (!slider || !sliderList || !prev || !next || !lside || !rside) {
+    alert('Elements not found. Make sure #prev, #next, .left, .right, and .swiperSection ul exist.');
     return;
   }
 
-  const itemsToShow = 5;
-  const totalItems = sliderList.querySelectorAll('li').length;
-  const effectiveWidth = 910;
-  const itemWidth = effectiveWidth / itemsToShow;
-  let currentPosition = 0;
+  const itemsToShow = 5; 
+  const totalItems = sliderList.querySelectorAll('li').length; 
+  const effectiveWidth = 910; 
+  const itemWidth = effectiveWidth / itemsToShow; 
+  let currentPosition = 0; 
+
 
   slider.style.width = '960px';
   sliderList.style.width = `${itemWidth * totalItems}px`;
@@ -24,63 +26,64 @@ function responsiveSlider() {
   });
 
   function nextSlide() {
+
     const maxPosition = -(itemWidth * (totalItems - itemsToShow));
+
     if (currentPosition > maxPosition) {
-      currentPosition -= itemWidth * itemsToShow;
+      currentPosition -= itemWidth * itemsToShow; 
     }
+
     if (currentPosition < maxPosition) {
-      currentPosition = maxPosition;
+      currentPosition = maxPosition; 
     }
     updateSliderPosition();
   }
 
   function prevSlide() {
-    if (currentPosition < 0) {
-      currentPosition += itemWidth * itemsToShow;
+    const maxPosition = -(itemWidth * (totalItems - itemsToShow));
+
+    
+    if (currentPosition === maxPosition) {
+      currentPosition += itemWidth * 2; 
+    } else if (currentPosition < 0) {
+      currentPosition += itemWidth * itemsToShow; 
     }
+
+
     if (currentPosition > 0) {
-      currentPosition = 0;
+      currentPosition = 0; 
     }
     updateSliderPosition();
   }
 
   function updateSliderPosition() {
     sliderList.style.transform = `translateX(${currentPosition}px)`;
-    updateLsideStyle();
-    BtnVisibility();
+ 
+BtnVisibility();
+updateSlideStyle();   
   }
 
-  function updateLsideStyle() {
+ function updateSlideStyle() {
     if (currentPosition === 0) {
       lside.style.cursor = 'default';
-      lside.classList.add('no-hover'); // Adds a class to disable hover effect
+      lside.classList.add('no-hover'); 
     } else {
       lside.style.cursor = 'pointer';
-      lside.classList.remove('no-hover'); // Restores hover effect
+      lside.classList.remove('no-hover'); 
     }
   }
 
   function BtnVisibility() {
     prev.style.display = (currentPosition === 0) ? 'none' : 'flex';
+
     const maxPosition = -(itemWidth * (totalItems - itemsToShow));
     next.style.display = (currentPosition <= maxPosition) ? 'none' : 'flex';
   }
 
   BtnVisibility();
-  updateLsideStyle();
+updateSlideStyle();
 
   prev.addEventListener('click', prevSlide);
   next.addEventListener('click', nextSlide);
-}
-
-window.onload = responsiveSlider;
-
-
-
-
-
-
-.Lside.no-hover:hover {
-  background-color: initial; /* No hover color */
-  transition: none;
+	
 }
