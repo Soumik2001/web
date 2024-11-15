@@ -1,3 +1,7 @@
+![image](https://github.com/user-attachments/assets/eb683180-6493-4641-8dd7-088df2c4266d)
+
+
+
 <div class="mainSection">
         <div class="img-container">
           <img src="images/bottle.png" width="78" height="256" alt="Bottle image" id="bottle">
