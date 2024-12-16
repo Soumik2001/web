@@ -277,7 +277,7 @@ background:#333333;
 min-width:100px;
 height:30px;
 border-right:1px solid #000;
-position:relative;
+
 }
 
 .tnav{
@@ -294,6 +294,7 @@ transition: all 0.3s ease;
 .tnav:hover, .tnav:visited{
 background:#666666;
 }
+.tnav:focus{  background: #666666;}
 
 .list{
 width:300px;
@@ -303,16 +304,18 @@ display:flex;
 flex-direction:column;
 justify-content:space-around;
 align-items:center;
+position:relative;
 }
-.list div{
-width:300px;
+.list1{
+width:100%;
 min-height:45px;
 text-align:left;
-padding:10px;
+padding: 7px 20px 12px;
 transition:all 0.3s ease-in-out;
 }
-.list div:hover{background:#333333; cursor:pointer;}
-.list div:hover .head{color:#FFF;}
+
+.list1:hover{background:#333333; cursor:pointer;}
+.list1:hover .head{color:#fff;}
 
 .head{
 color:#333333;
@@ -324,9 +327,10 @@ color:#2fa3c7;
 }
 
 .rule{
-height:1px;
-width:275px;
-background:#cccccc;
+height: 1px;
+  width: 85%;
+  background: #cccccc;
+  margin-left: 19px;
 
 }
 
@@ -341,10 +345,25 @@ border:none;
 color:#fff;
 transition:background 0.3s ease-in-out;
 position:relative;
-right:109px;
 margin: 10px 0 15px;
 font-weight:600;
+right:100px;
+top: 3px;
 }
+
+.loading-spinner {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  color: #333;
+}
+.tnav.active {
+  background: #666666;
+}
+
 
 
 .carousel{
