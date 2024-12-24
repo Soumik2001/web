@@ -36,3 +36,86 @@
 </div>
 </div>
 
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const middle = document.querySelector('.middle');
+  const slides = document.querySelectorAll('.swiper-slide');
+  const leftArrow = document.querySelector('.left img');
+  const rightArrow = document.querySelector('.right img');
+  const inner = document.querySelector('.inner');
+//console.log(slides[0].offsetWidth);
+
+
+  let slideIndex = 0;
+  const slideWidth = slides[0].offsetWidth + 12; 
+  const totalSlides = slides.length;
+
+console.log(slideWidth);
+
+  let autoScroll;
+
+
+  slides.forEach(slide => {
+    const clone = slide.cloneNode(true);
+    middle.appendChild(clone);
+  });
+
+  // for firefox initialize to the first child
+  middle.scrollLeft = 0;
+
+  // Scroll slider
+
+  function scrollSlider(direction) {
+    if (direction === 'next') {
+      slideIndex++;
+    } else if (direction === 'prev') {
+      if (slideIndex === 0) {
+        slideIndex = totalSlides;
+        middle.scrollLeft = totalSlides * slideWidth;
+      }
+      slideIndex--;
+    }
+    middle.scrollTo({
+      left: slideIndex * slideWidth,
+      behavior: 'smooth'
+    });
+
+
+    if (slideIndex >= totalSlides) {
+      setTimeout(() => {
+        slideIndex = 0;
+        middle.scrollLeft = 0; 
+      }, 300); 
+    }
+  }
+
+
+  function startAutoScroll() {
+    autoScroll = setInterval(() => scrollSlider('next'), 3000);
+  }
+
+
+  function stopAutoScroll() {
+    clearInterval(autoScroll);
+  }
+
+
+  rightArrow.addEventListener('click', () => {
+    stopAutoScroll(); // Pause auto-scroll on manual navigation
+    scrollSlider('next');
+  });
+
+  leftArrow.addEventListener('click', () => {
+    stopAutoScroll(); // Pause auto-scroll on manual navigation
+    scrollSlider('prev');
+  });
+
+  inner.addEventListener('mouseenter', stopAutoScroll);
+
+  inner.addEventListener('mouseleave', startAutoScroll);
+
+
+  startAutoScroll();
+});
+
