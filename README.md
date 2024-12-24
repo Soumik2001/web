@@ -1,56 +1,55 @@
+const sliderUL = document.querySelector('.sliderUL');
+const leftButton = document.querySelector('.left');
+const rightButton = document.querySelector('.right');
+const slideWidth = 150; // Width of one image plus gap
+const maxVisibleImages = 5;
 
-<div class="carousel2">
-  <div class="inner">
-  <div class="left">
-<img src="images/larrow.png">
-  </div>
-  
-  
-  <ul class="sliderUL">
-      <li><img src="images/palm.png"  class="product special"></li>
-      <li><img src="images/sony.png"  class="product special"></li>
-      <li><img src="images/boss.png"  class="product special"></li>
-      <li><img src="images/apple.png"  class="product special"></li>
-      <li><img src="images/adidas.png"  class="product special"></li>
-      <li><img src="images/bmw.png"  class="product"></li>
-      <li><img src="images/puma.png"  class="product"></li>
-      <li><img src="images/volkswagen.png"  class="product"></li>
-      <li><img src="images/ibm.png"  class="product"></li>
-      <li><img src="images/google.png"  class="product"></li>
-      <li><img src="images/rolex.png"  class="product"></li>
-      <li><img src="images/instagram.png"  class="product"></li>
-      <li><img src="images/youtube.png"  class="product"></li>
-      <li><img src="images/mahindra.png"  class="product"></li>
-      <li><img src="images/tata.png"  class="product"></li>
-  </ul>
-  
-  <div class="right">
-<img src="images/rarrow.png">
-  </div>
-</div>
-</div>
+// Calculate total number of slides (original items only)
+const originalSlides = document.querySelectorAll('.sliderUL li').length / 3;
+let currentIndex = originalSlides; // Start at the first set of original items
 
+// Clone slides for infinite effect
+const totalSlides = sliderUL.children.length;
+sliderUL.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
 
+// Move left
+leftButton.addEventListener('click', () => {
+  if (currentIndex === 0) {
+    // Jump to the duplicated set at the end
+    currentIndex = originalSlides * 2;
+    sliderUL.style.transition = 'none';
+    sliderUL.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+    setTimeout(() => {
+      sliderUL.style.transition = 'transform 0.5s ease-in-out';
+      currentIndex--;
+      updateSliderPosition();
+    }, 0);
+  } else {
+    currentIndex--;
+    updateSliderPosition();
+  }
+});
 
+// Move right
+rightButton.addEventListener('click', () => {
+  if (currentIndex === originalSlides * 2) {
+    // Jump to the duplicated set at the beginning
+    currentIndex = originalSlides;
+    sliderUL.style.transition = 'none';
+    sliderUL.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+    setTimeout(() => {
+      sliderUL.style.transition = 'transform 0.5s ease-in-out';
+      currentIndex++;
+      updateSliderPosition();
+    }, 0);
+  } else {
+    currentIndex++;
+    updateSliderPosition();
+  }
+});
 
-.sliderUL{
-display:flex;
-gap:50px;
-max-width:555px;
-overflow:hidden;
-}
-.sliderUL li{
-width:100px;
-height:100px;
-display: flex;
-  align-items: center;
-}
-
-.special{
-  transition: all 0.2s ease-in-out;
-}
-
-.product {
-  transition: all 0.2s ease-in-out;
+// Update slider position
+function updateSliderPosition() {
+  sliderUL.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
 }
 
